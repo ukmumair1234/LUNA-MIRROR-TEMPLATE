@@ -1,21 +1,22 @@
 ```diff 
 - [ DEAD REPO AND NO MORE UPDATE ]
 ```
-[![Luna-mirror](https://telegra.ph/file/be1900eb55a37c40a9212.jpg)
+[![SlamDevs](https://telegra.ph/file/143032e96542e7534f073.jpg)](https://t.me/SlamDevs)
 
-## 𝙻𝚄𝙽𝙰-𝙼𝙸𝚁𝚁𝙾𝚁-𝙱𝙾𝚃
-![GitHub Repo stars](https://img.shields.io/github/stars/BalamuruganDV/LUNA-MIRROR-LEECH?color=blue&style=flat)
-![GitHub forks](https://img.shields.io/github/forks/BalamuruganDV/LUNA-MIRROR-LEECH?color=green&style=flat)
-![GitHub contributors](https://img.shields.io/github/contributors/BalamuruganDV/LUNA-MIRROR-LEECH?style=flat)
-![GitHub watchers](https://img.shields.io/github/watchers/BalamuruganDV/LUNA-MIRROR-LEECH)
+# Slam Mirror Bot
+![GitHub Repo stars](https://img.shields.io/github/stars/breakdowns/slam-mirrorbot?color=blue&style=flat)
+![GitHub forks](https://img.shields.io/github/forks/breakdowns/slam-mirrorbot?color=green&style=flat)
+![GitHub contributors](https://img.shields.io/github/contributors/breakdowns/slam-mirrorbot?style=flat)
+![GitHub watchers](https://img.shields.io/github/watchers/breakdowns/slam-mirrorbot)
+![Docker Pulls](https://img.shields.io/docker/pulls/breakdowns/mega-sdk-python?label=Docker%20Pull)
 
-**LUNA Mirror Bot** is a _multipurpose_ Telegram Bot written in Python for mirroring files on the Internet to our beloved Google Drive. Based on [python-aria-mirror-bot](https://github.com/lzzy12/python-aria-mirror-bot)
+**Slam Mirror Bot** is a _multipurpose_ Telegram Bot written in Python for mirroring files on the Internet to our beloved Google Drive. Based on [python-aria-mirror-bot](https://github.com/lzzy12/python-aria-mirror-bot)
 
 # Features:
 <details>
     <summary><b>Click Here For More Details</b></summary>
 
-## 𝙱𝚈 𝙱𝙰𝙻𝙰𝙼𝚄𝚁𝚄𝙶𝙰𝙽
+## By Slam Devs
 - qBittorrent
 - Leech supported
 - Thumbnail supported
@@ -81,7 +82,8 @@ Deploying is pretty much straight forward and is divided into several steps as f
 
 - Clone this repo:
 ```
-git clone https://github.com/BalamuruganDV/LUNA-MIRROR-LEECH
+git clone https://github.com/breakdowns/slam-mirrorbot mirrorbot/
+cd mirrorbot
 ```
 
 - Install requirements
@@ -361,3 +363,5 @@ Thanks to:
 - [`zevtyardt`](https://github.com/zevtyardt) for some direct links
 - [`yash-dk`](https://github.com/yash-dk) for implementation of qBittorrent on Python
 - [`xyou365`](https://github.com/xyou365) for Service Accounts script
+
+And many more people who aren't mentioned here, but can be found in [Contributors](https://github.com/breakdowns/slam-mirrorbot/graphs/contributors).

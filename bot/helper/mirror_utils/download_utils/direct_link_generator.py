@@ -16,6 +16,7 @@ import urllib.parse
 from os import popen
 from random import choice
 from urllib.parse import urlparse
+from requests import Session as rsession
 
 import lk21
 import requests, cfscrape

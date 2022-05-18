@@ -25,7 +25,7 @@ def cloneNode(update, context):
             deleteMessage(context.bot, msg)
         except DirectDownloadLinkException as e:
             deleteMessage(context.bot, msg)
-            return sendMessage(str(e), context.bot, update.message)
+            return sendMessage(str(e), context.bot, update)
     if "drive.google.com" in link:
         gd = gdriveTools.GoogleDriveHelper()
         res, size, name, files = gd.clonehelper(link)

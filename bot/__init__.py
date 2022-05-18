@@ -155,6 +155,14 @@ try:
 except KeyError as e:
     LOGGER.error("One or more env variables missing! Exiting now")
     exit(1)
+    
+try:
+    CRYPT = getConfig('CRYPT')
+    if len(CRYPT) == 0:
+        raise KeyError
+except:
+    CRYPT = None
+    
 try:
     DB_URI = getConfig('DATABASE_URL')
     if len(DB_URI) == 0:

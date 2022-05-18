@@ -8,20 +8,33 @@ from bot import dispatcher, LOGGER, CLONE_LIMIT, STOP_DUPLICATE, download_dict, 
 from bot.helper.ext_utils.bot_utils import get_readable_file_size, check_limit
 import random
 import string
+from bot.helper.ext_utils.exceptions import DirectDownloadLinkException
+from bot.helper.mirror_utils.download_utils.direct_link_generator import gdtot, is_gdtot_link
 
 
 def cloneNode(update, context):
     args = update.message.text.split(" ", maxsplit=1)
+    link = ''
     if len(args) > 1:
         link = args[1]
+    is_gdtot = is_gdtot_link(link)
+    if is_gdtot:
+        try:
+            msg = sendMessage(f"Processing: <code>{link}</code>", context.bot, update)
+            link = gdtot(link)
+            deleteMessage(context.bot, msg)
+        except DirectDownloadLinkException as e:
+            deleteMessage(context.bot, msg)
+            return sendMessage(str(e), context.bot, update.message)
+    if "drive.google.com" in link:
         gd = gdriveTools.GoogleDriveHelper()
         res, size, name, files = gd.clonehelper(link)
         if res != "":
             sendMessage(res, context.bot, update)
             return
         if STOP_DUPLICATE:
-            LOGGER.info('Checking File/Folder if already in Drive...')
-            smsg, button = gd.drive_list(name, True, True)
+            LOGGER.info(f"Checking File/Folder if already in Drive...")
+            smsg, button = gd.drive_list(name)
             if smsg:
                 msg3 = "File/Folder is already available in Drive.\nHere are the search results:"
                 sendMarkup(msg3, context.bot, update, button)
@@ -63,12 +76,15 @@ def cloneNode(update, context):
         if uname is not None:
             cc = f'\n\ncc: {uname}'
             men = f'{uname} '
-        if button in ["cancelled", ""]:
+        if button in ("cancelled", ""):
             sendMessage(men + result, context.bot, update)
         else:
             sendMarkup(result + cc, context.bot, update, button)
     else:
-        sendMessage('Provide G-Drive Shareable Link to Clone.', context.bot, update)
+        sendMessage('𝐏𝐫𝐨𝐯𝐢𝐝𝐞 𝐆-𝐃𝐫𝐢𝐯𝐞 𝐒𝐡𝐚𝐫𝐞𝐚𝐛𝐥𝐞 𝐋𝐢𝐧𝐤 𝐭𝐨 𝐂𝐥𝐨𝐧𝐞.', context.bot, update)
+    if is_gdtot:
+        gd.deletefile(link)
+    LOGGER.info(f"Cloning Done: {name}")
 
 clone_handler = CommandHandler(BotCommands.CloneCommand, cloneNode, filters=CustomFilters.authorized_chat | CustomFilters.authorized_user, run_async=True)
 dispatcher.add_handler(clone_handler)

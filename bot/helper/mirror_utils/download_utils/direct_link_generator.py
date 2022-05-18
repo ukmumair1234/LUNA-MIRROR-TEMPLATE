@@ -8,7 +8,7 @@ from https://github.com/AvinashReddy3108/PaperplaneExtended . I hereby take no c
 than the modifications. See https://github.com/AvinashReddy3108/PaperplaneExtended/commits/master/userbot/modules/direct_links.py
 for original authorship. """
 
-from bot import LOGGER, UPTOBOX_TOKEN
+from bot import LOGGER, UPTOBOX_TOKEN, CRYPT
 import json
 import math
 import re
@@ -91,10 +91,36 @@ def direct_link_generator(link: str):
         return fichier(link)
     elif 'solidfiles.com' in link:
         return solidfiles(link)
+    elif is_gdtot_link(link):
+        return gdtot(link)
     else:
         raise DirectDownloadLinkException(f'No Direct link function found for {link}')
 
 
+def is_gdtot_link(url: str):
+    url = re.match(r'https?://.+\.gdtot\.\S+', url)
+    return bool(url)
+
+def gdtot(url: str) -> str:
+    """ Gdtot google drive link generator
+    By https://github.com/xcscxr """
+
+    if CRYPT is None:
+        raise DirectDownloadLinkException("ERROR: CRYPT cookie not provided")
+
+    match = re.findall(r'https?://(.+)\.gdtot\.(.+)\/\S+\/\S+', url)[0]
+
+    with rsession() as client:
+        client.cookies.update({'crypt': CRYPT})
+        res = client.get(url)
+        res = client.get(f"https://{match[0]}.gdtot.{match[1]}/dld?id={url.split('/')[-1]}")
+    matches = re.findall('gd=(.*?)&', res.text)
+    try:
+        decoded_id = b64decode(str(matches[0])).decode('utf-8')
+    except:
+        raise DirectDownloadLinkException("ERROR: Try in your broswer, mostly file not found or user limit exceeded!")
+    return f'https://drive.google.com/open?id={decoded_id}'
+        
 def zippy_share(url: str) -> str:
     """ ZippyShare direct links generator
     Based on https://github.com/KenHV/Mirror-Bot
